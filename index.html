@@ -169,18 +169,32 @@ p{margin:0}
 @media (max-width:760px){.galeria{grid-template-columns:repeat(2,minmax(0,1fr))}.foto.grande{grid-column:span 2;grid-row:span 1}}
 
 /* Ubicación */
-.ubicacion{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.ubicacion{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,72px);align-items:center}
 .datos-ubicacion{display:grid;gap:1.2rem;margin-top:2rem}
 .dato{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start}
 .dato svg{width:24px;height:24px;color:var(--verde);margin-top:3px}
 .dato strong{display:block;font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--verde)}
 .dato span{color:var(--tinta)}
-.mapa{position:relative;aspect-ratio:4/3;max-width:100%;border-radius:var(--radio);overflow:hidden;background:var(--verde);display:grid;place-items:center}
-.mapa canvas{position:absolute;inset:0;width:100%;height:100%}
-.mapa .pin{position:relative;z-index:1;display:grid;justify-items:center;gap:.8rem;text-align:center;color:var(--crema);padding:20px}
-.mapa .pin img{width:min(150px,40%);height:auto}
-.mapa .pin span{font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--mantequilla)}
-@media (max-width:860px){.ubicacion{grid-template-columns:minmax(0,1fr)}}
+.mapa{position:relative;display:block;aspect-ratio:4/3;max-width:100%;border-radius:var(--radio);overflow:hidden;background:var(--verde);text-decoration:none;border:2px solid var(--verde-noche)}
+.mapa-svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.mapa:hover .mapa-svg{transform:scale(1.04)}
+.m-fondo{fill:var(--verde)}
+.m-parque{fill:#6B7C55}
+.m-peatonal,.m-calle,.m-media,.m-principal,.m-topete{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.m-peatonal{stroke:rgba(255,246,214,.28);stroke-width:3;stroke-dasharray:1 7}
+.m-calle{stroke:rgba(255,246,214,.3);stroke-width:7}
+.m-media{stroke:rgba(255,234,147,.5);stroke-width:10}
+.m-principal{stroke:rgba(255,234,147,.62);stroke-width:14}
+.m-topete{stroke:var(--mantequilla);stroke-width:12}
+.m-etiquetas text,.m-etiqueta-topete{font-family:var(--f-texto);font-size:15px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-anchor:middle;dominant-baseline:middle;fill:rgba(255,246,214,.82);paint-order:stroke;stroke:var(--verde);stroke-width:5px;stroke-linejoin:round}
+.m-etiqueta-topete{fill:var(--verde-noche);stroke:var(--mantequilla);font-weight:600;font-size:16px}
+.mapa .marcador{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:var(--mantequilla);border:3px solid var(--verde-noche);display:grid;place-items:center;box-shadow:0 6px 18px rgba(46,56,38,.45);z-index:2}
+.mapa .marcador img{width:38px;height:auto}
+.mapa .marcador::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:2.5px solid var(--mantequilla);animation:anillo 2.4s ease-out infinite}
+.mapa .cartel{position:absolute;left:50%;top:50%;transform:translate(calc(-100% - 44px),-50%);z-index:2;background:var(--verde-noche);color:var(--mantequilla);font-size:var(--t-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.55em 1em;border-radius:999px;white-space:nowrap}
+.mapa .ir{position:absolute;left:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:.5em;background:var(--mantequilla);color:var(--verde-noche);font-size:var(--t-xs);font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.7em 1.1em;border-radius:999px;border:2px solid var(--verde-noche)}
+.mapa .creditos{position:absolute;right:10px;top:8px;z-index:2;font-size:.66rem;color:rgba(255,246,214,.7)}
+@media (max-width:860px){.ubicacion{grid-template-columns:minmax(0,1fr)}.mapa{aspect-ratio:1/1}.mapa .cartel{transform:translate(-50%,42px)}}
 
 /* Contacto */
 .contacto{background:var(--mantequilla);color:var(--verde-noche)}
@@ -308,7 +322,7 @@ fieldset.campo{border:0;margin:0;padding:0}
       <div class="cabeza-seccion">
         <p class="antetitulo">Entrenamientos</p>
         <h2 style="font-size:var(--t-h2);color:var(--verde-noche)">Tu entrenamiento,<br>no uno cualquiera</h2>
-        <p class="entrada">Entrenamos personas, no rutinas. Partimos de dónde estás hoy y construimos contigo el camino hasta donde quieres llegar.</p>
+        <p class="entrada">Entrenamos personas, no rutinas. Partimos de donde estás hoy y construimos contigo el camino hasta donde quieres llegar.</p>
       </div>
       <div class="servicios">
         <article class="servicio">
@@ -435,10 +449,11 @@ fieldset.campo{border:0;margin:0;padding:0}
       <div>
         <p class="antetitulo">Ubicación</p>
         <h2 style="font-size:var(--t-h2);color:var(--verde-noche)">Dónde encontrarnos</h2>
+        <p class="entrada" style="margin-top:1.2rem">Estamos en Sevilla, en la calle Almirante Topete, muy cerca de la avenida Ramón Carande.</p>
         <div class="datos-ubicacion">
           <div class="dato">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            <div><strong>Dirección</strong><span data-numia="direccion">Dirección por anunciar</span></div>
+            <div><strong>Dirección</strong><span data-numia="direccion">C/ Almirante Topete 32, bajo lateral derecha · 41013 Sevilla</span></div>
           </div>
           <div class="dato">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
@@ -446,17 +461,27 @@ fieldset.campo{border:0;margin:0;padding:0}
           </div>
           <div class="dato">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16" opacity=".6"/></svg>
-            <div><strong>Cómo llegar</strong><span><a data-numia-mapa href="https://maps.google.com" target="_blank" rel="noopener">Abrir en Google Maps</a></span></div>
+            <div><strong>Cómo llegar</strong><span><a data-numia-mapa href="https://www.google.com/maps/search/?api=1&query=Calle%20Almirante%20Topete%2032%2C%2041013%20Sevilla" target="_blank" rel="noopener">Abrir en Google Maps</a></span></div>
           </div>
         </div>
       </div>
-      <div class="mapa">
-        <canvas id="mapa-fondo" aria-hidden="true"></canvas>
-        <div class="pin">
-          <img src="img/isotipo-numia-amarillo.svg" alt="">
-          <span>Aquí estaremos muy pronto</span>
-        </div>
-      </div>
+      <a class="mapa" data-numia-mapa href="https://www.google.com/maps/search/?api=1&query=Calle%20Almirante%20Topete%2032%2C%2041013%20Sevilla" target="_blank" rel="noopener" aria-label="Abrir la ubicación de NúMia en Google Maps">
+        <svg class="mapa-svg" viewBox="-470 -352 940 705" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mapa de la zona: NúMia está en la calle Almirante Topete 32, Sevilla">
+          <rect x="-1000" y="-1000" width="2000" height="2000" class="m-fondo"/>
+          <path class="m-parque" d="M174 693L179 692L186 693L194 695L198 697L270 588L334 489L399 389L395 386L390 378L386 371L386 366L235 390L212 394L228 494L127 510L125 505L122 506L132 542ZM245 -177L231 -161L259 -138L272 -154ZM193 46L197 71L250 61L245 36ZM315 -437L343 -466L358 -451L330 -422ZM281 -470L297 -486L326 -457L310 -441ZM454 307L598 86L599 83L599 77L599 71L595 69L589 66L585 61L582 56L580 53L578 49L577 45L576 44L575 45L420 285ZM-471 50L-426 42L-434 3L-479 11ZM-402 -474L-414 -434L-385 -425L-373 -465ZM-546 116L-546 111L-534 99L-495 37L-495 105ZM102 -67L41 -60L49 -21L109 -30ZM-484 -205L-482 -168L-462 -169L-464 -176L-471 -180L-475 -185L-474 -193L-470 -199L-460 -199L-455 -196L-455 -192L-444 -193L-444 -210L-469 -207ZM-472 -142L-470 -124L-466 -124L-457 -128L-454 -121L-461 -119L-466 -118L-468 -113L-467 -106L-466 -105L-455 -108L-450 -108L-446 -101L-439 -99L-427 -98L-423 -99L-418 -102L-412 -104L-404 -112L-403 -118L-398 -122L-407 -137L-415 -149L-419 -154L-431 -153L-435 -150L-440 -146L-450 -144L-460 -143ZM-338 -226L-337 -222L-308 -226L-304 -224L-298 -226L-293 -228L-291 -225L-287 -220L-284 -216L-282 -213L-286 -209L-287 -206L-287 -200L-286 -194L-288 -192L-294 -192L-302 -191L-302 -185L-300 -179L-297 -176L-295 -173L-292 -173L-292 -177L-287 -177L-285 -172L-287 -170L-293 -170L-295 -166L-299 -163L-303 -160L-301 -154L-300 -151L-271 -157L-277 -194L-277 -197L-278 -202L-280 -220L-282 -234ZM34 465L88 451L78 420L25 433ZM299 -60L391 -145L404 -132L367 -12L348 -17L299 -54L298 -57Z"/>
+          <path class="m-peatonal" d="M8 -292L15 -247M60 17L55 -18L135 -30M39 -35L43 -16L55 -18M39 -98L62 -100L126 -29M34 -131L39 -98M-134 79L-79 71M62 171L74 169M77 268L90 265M-71 268L-66 301M-81 -84L-25 -93M-77 -58L-21 -67M-73 -33L-17 -42M-46 -222L-30 -121M197 -264L201 -233L198 -198M244 -250L222 -194L228 -192L210 -147M-89 -1L-84 31M-83 -290L-95 -364L-107 -411M286 39L270 50L259 -18L231 -15L225 -38M41 214L12 217M39 -98L29 -96L39 -35L6 -31M-109 35L-102 74M31 -149L34 -131M58 72L46 74M57 -195L66 -196M49 -241L58 -242M214 -266L216 -306L220 -311M-345 -321L-218 -339M-62 136L-47 133M-171 -220L-103 -229M198 -198L198 -146M-382 107L-366 199M-5 -394L58 -376L89 -347L132 -359L161 -375M132 -359L66 -420L45 -419L36 -382M48 -308L45 -326L57 -328L84 -352M36 -382L28 -354L33 -328L39 -329L42 -308M-26 -231L-70 -225"/>
+          <path class="m-calle" d="M-488 -1L-806 18M-481 126L-486 116M-819 -90L-490 -107M-719 419L-486 310L-416 296L-387 295L-151 256M-216 -375L-109 -407L-107 -411M-181 83L-169 69M-408 -63L-382 -87L-361 -118L-349 -129L-190 -160M-488 -1L-508 48L-529 84L-557 112L-591 137M-244 177L-442 212M-121 427L-276 479M-199 454L-261 83M-811 -405L-449 -279L-341 -292M15 24L153 1M151 -258L214 -266L231 -262L364 -126M439 -109L451 -136L452 -158L447 -174L440 -177L416 -174L395 -154M289 -56L340 -15L453 101M170 104L202 298M186 201L47 223M32 128L170 104M63 320L202 298M237 316L326 299M340 -15L286 39L285 48L314 227M170 104L214 91L258 85L332 86L388 33M25 88L-129 111M-334 -240L-341 -292M-175 -56L-392 -15L-488 -1M-382 94L-408 -63M-488 -49L-408 -63M-288 -85L-279 -37M109 -78L153 1M-9 -124L77 -137M-109 -275L-101 -212M-74 -214L-169 -202L-178 -264M-25 -228L49 -241M-18 -183L57 -195M289 -56L217 -90L109 -78M-108 -108L-9 -124M-85 -112L-68 -5M-139 40L14 16M-134 79L-139 50M-74 405L76 382M63 320L-92 345M198 273L228 294M40 178L-115 202M-74 103L-86 32M-8 185L-22 95M-124 145L-62 136M-42 162L-119 174M37 20L85 317M162 55L58 72M-15 137L32 128M302 153L181 173M314 227L194 249M348 245L375 195L406 153L453 101M429 77L382 126L314 227M-104 273L51 248M9 255L21 327M-21 295L-98 306M-109 237L-32 225M9 -17L-68 -5M-12 -14L-30 -121M135 -138L106 -232L94 -240L60 -231M147 -311L151 -258M313 -179L279 -146L301 -129M164 -260L198 -198M150 -271L138 -268L176 -143M490 65L413 -15L439 -109M323 -321L598 -44M409 -284L366 -241M174 728L83 406M-92 -800L-45 -642L-96 -450M-134 79L-129 111M-148 63L-139 69L-134 79M-488 -1L-496 -219M57 284L15 291M153 1L170 104M-117 -448L-107 -411M348 245L410 286M447 -174L458 -185M395 -154L289 -56M439 -109L550 7M-309 490L-396 304L-408 288L-481 126M395 -154L439 -109M236 -311L256 -297L395 -154M83 406L81 397M228 294L233 299L237 316M-117 -448L-107 -442L-96 -450M-32 225L12 217M-92 -1L-99 -44M-96 -450L-107 -411M-117 -448L-212 -765M15 -247L27 -173M90 265L194 249M49 -297L77 -137M453 101L565 -9M453 101L475 123L503 141M237 316L245 370M74 169L178 151M-107 -411L-35 -394M-488 -1L-486 116M-299 -141L-288 -85M-181 -97L-108 -108M-408 -63L-194 -103L-181 -97M-129 111L-92 345L-74 405M245 370L246 378M202 298L228 294M-121 427L-139 342L-181 83M-195 72L-181 83M-112 462L-118 438M-118 438L-121 427M-341 -292L-209 -312M-341 -292L-371 -505M314 227L326 299M77 -137L93 -133L198 -146L218 -145L231 -101L232 -85M-68 -5L-15 333M-68 -5L-92 -1M77 -137L109 -78M27 -173L31 -149M326 299L348 245M348 245L314 227M427 299L410 286"/>
+          <path class="m-media" d="M-204 -261L-66 -281M-204 -261L-482 -220M51 -683L325 -401M-36 -286L49 -297M-66 -281L-36 -286M351 -402L325 -401M229 -336L244 -354M49 -297L168 -313L207 -322M207 -322L229 -336M244 -354L256 -370L277 -385L325 -401"/>
+          <path class="m-principal" d="M1 -524L-66 -281M585 28L567 42L410 286M-218 74L-169 69L-148 63L-139 50L-139 40L-145 27L-157 17M-204 -261L-169 -12M-157 17L-169 -12M-169 -12L-170 19L-179 41M-185 47L-190 58L-187 66L-179 70M231 -359L45 -544M207 -322L220 -311L241 -312M-204 -261L-209 -312M246 378L395 355L413 343M443 328L444 316L434 302L418 297L405 300M400 308L367 337L338 353L245 370M-137 460L-39 437M-39 437L83 406M-42 428L-139 452M-139 452L-287 491L-314 504M-279 -727L-217 -329L-209 -312M-36 -286L19 -483L25 -516M-132 -34L-157 17M-132 -34L-68 -232M-68 -232L-55 -259L-36 -286M-67 -258L-68 -232M245 370L81 397M-179 41L-206 58L-227 65L-486 116M-145 27L-132 -34M-597 150L-481 126M-66 -281L-67 -258M304 -280L254 -336M241 -312L264 -305L304 -280M-209 -312L-229 -465L-274 -748M565 -9L449 -128M-486 116L-618 141M81 397L-42 428M449 -128L304 -280M249 -349L244 -354M231 -359L217 -356L207 -347L204 -336L207 -322M254 -336L249 -349M241 -312L249 -320L254 -336M400 308L397 322L400 333L413 343M83 406L246 378M-157 17L-179 41M-218 74L-188 64L-161 45L-145 27M401 305L400 308M-481 126L-218 74M244 -354L231 -359M-187 66L-181 83M410 286L405 300M405 300L401 305M40 -497L204 -332"/>
+          <path class="m-topete" d="M25 88L-36 -286M63 320L25 88M81 397L63 320"/>
+          <g class="m-etiquetas"><text x="-186" y="-140" transform="rotate(82 -186 -140)">Av. Ramón Carande</text><text x="-330" y="84" transform="rotate(-11 -330 84)">Calle Cardenal Bueno Monreal</text><text x="352" y="-196" transform="rotate(46 352 -196)">Avenida de la Paz</text><text x="300" y="388" transform="rotate(-9 300 388)">Calle Alfonso Lasso de Vega</text><text x="-400" y="-251" transform="rotate(-7 -400 -251)">Calle Felipe II</text></g>
+          <text class="m-etiqueta-topete" x="-20" y="-205" transform="rotate(80.7 -20 -205)">Calle Almirante Topete</text>
+        </svg>
+        <span class="marcador" aria-hidden="true"><img src="img/isotipo-numia-verde.svg" alt=""></span>
+        <span class="cartel" aria-hidden="true">NúMia · n.º 32</span>
+        <span class="ir">Cómo llegar <span aria-hidden="true">→</span></span>
+        <span class="creditos">© OpenStreetMap</span>
+      </a>
     </div>
   </section>
 
@@ -550,7 +575,7 @@ fieldset.campo{border:0;margin:0;padding:0}
       </div>
       <div class="pie-col">
         <strong>Centro</strong>
-        <span data-numia="direccion">Dirección por anunciar</span>
+        <span data-numia="direccion">C/ Almirante Topete 32, bajo lateral derecha · 41013 Sevilla</span>
         <span>Apertura próximamente</span>
       </div>
     </div>
@@ -583,9 +608,9 @@ const NUMIA = {
   telefonoVisible: "+34 614 03 14 47", // Cómo se muestra el número
   email: "hola@numiatrainingcenter.com",
   instagram: "numiatrainingcenter",   // Usuario sin @
-  direccion: "Dirección por anunciar",
+  direccion: "C/ Almirante Topete 32, bajo lateral derecha · 41013 Sevilla",
   horario: "Lo publicaremos con la apertura",
-  mapa: "https://maps.google.com",    // Enlace de Google Maps del local
+  mapa: "https://www.google.com/maps/search/?api=1&query=Calle%20Almirante%20Topete%2032%2C%2041013%20Sevilla", // Enlace de Google Maps del local
   // Opcional: endpoint de Formspree (https://formspree.io) para recibir
   // los formularios en tu email, p. ej. "https://formspree.io/f/abcdwxyz".
   // Si se deja vacío, los datos se envían por WhatsApp.
@@ -622,27 +647,6 @@ const NUMIA = {
     }
   }
 
-  /* Fondo del mapa: calles dibujadas */
-  const cv = document.getElementById("mapa-fondo");
-  function dibujarMapa(){
-    if (!cv) return;
-    const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
-    cv.width = r.width * dpr; cv.height = r.height * dpr;
-    const c = cv.getContext("2d"); c.scale(dpr, dpr);
-    c.clearRect(0,0,r.width,r.height);
-    c.strokeStyle = "rgba(255,234,147,.16)"; c.lineCap = "round";
-    let s = 7; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
-    for (let i = 0; i < 14; i++) {
-      c.lineWidth = i % 4 === 0 ? 7 : 2.5;
-      c.beginPath();
-      if (i % 2) { const y = rnd() * r.height; c.moveTo(-10, y); c.bezierCurveTo(r.width*.3, y + (rnd()-.5)*80, r.width*.7, y + (rnd()-.5)*80, r.width+10, y + (rnd()-.5)*60); }
-      else { const x = rnd() * r.width; c.moveTo(x, -10); c.bezierCurveTo(x + (rnd()-.5)*80, r.height*.35, x + (rnd()-.5)*80, r.height*.7, x + (rnd()-.5)*60, r.height+10); }
-      c.stroke();
-    }
-    c.strokeStyle = "rgba(255,234,147,.35)"; c.lineWidth = 2; c.setLineDash([2,8]);
-    c.beginPath(); c.arc(r.width/2, r.height/2, Math.min(r.width,r.height)*.34, 0, Math.PI*2); c.stroke();
-  }
-  dibujarMapa(); window.addEventListener("resize", dibujarMapa);
 
   /* Formulario */
   const form = document.getElementById("form-contacto");

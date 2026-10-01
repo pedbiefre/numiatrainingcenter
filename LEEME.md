@@ -12,7 +12,9 @@ Ahí se cambia todo de una vez:
 - `email`, `instagram` (sin @), `direccion`, `horario`
 - `mapa`: el enlace de Google Maps del local
 
-**El teléfono ya es el real. El email, Instagram y dirección siguen siendo de ejemplo.**
+**El teléfono y la dirección ya son los reales. El email y el Instagram siguen siendo de ejemplo.**
+
+El mapa de la sección Ubicación está dibujado con las calles reales de la zona (datos de OpenStreetMap). Si cambia la dirección, hay que regenerarlo.
 
 ## 2. Recibir el formulario en tu email (recomendado)
 
