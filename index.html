@@ -59,7 +59,7 @@ p{margin:0}
 .entrada{max-width:62ch;font-size:var(--t-l);font-weight:300;line-height:1.5}
 .oscuro .entrada{color:rgba(255,246,214,.88)}
 .claro .entrada{color:var(--tinta-suave)}
-.cabeza-seccion{display:grid;gap:1.4rem;margin-bottom:clamp(40px,6vw,72px)}
+.cabeza-seccion{display:grid;grid-template-columns:minmax(0,1fr);gap:1.4rem;margin-bottom:clamp(40px,6vw,72px)}
 
 /* Botones */
 .boton{display:inline-flex;align-items:center;justify-content:center;gap:.6em;font-family:var(--f-texto);font-weight:600;font-size:var(--t-s);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:1em 1.6em;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:transform .2s ease,background-color .2s ease,color .2s ease}
@@ -88,8 +88,11 @@ p{margin:0}
 .estado{display:inline-flex;align-items:center;gap:.7em;border:1.5px solid var(--linea-clara);border-radius:999px;padding:.5em 1.1em .5em .9em;font-size:var(--t-xs);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mantequilla);margin-bottom:1.8rem}
 .estado i{width:9px;height:9px;border-radius:50%;background:var(--mantequilla);box-shadow:0 0 0 0 rgba(255,234,147,.6);animation:latido 2.2s ease-out infinite}
 @keyframes latido{0%{box-shadow:0 0 0 0 rgba(255,234,147,.55)}70%{box-shadow:0 0 0 12px rgba(255,234,147,0)}100%{box-shadow:0 0 0 0 rgba(255,234,147,0)}}
-.hero h1{font-size:var(--t-h1);font-weight:900;color:var(--crema)}
-.hero h1 em{font-style:normal;color:var(--mantequilla);display:block}
+.nombre{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;margin-bottom:1.6rem;text-transform:none}
+.nombre span{font-family:var(--f-display);font-weight:900;font-size:clamp(4.4rem,2rem + 9.5vw,10rem);line-height:.82;letter-spacing:-.005em;color:var(--mantequilla)}
+.nombre small{font-family:var(--f-texto);font-weight:400;font-size:clamp(.95rem,.75rem + .9vw,1.45rem);letter-spacing:.42em;text-transform:uppercase;color:var(--crema);padding-left:.2em}
+.lema{font-family:var(--f-display);font-weight:800;text-transform:uppercase;line-height:.95;font-size:var(--t-h2);color:var(--crema);text-wrap:balance;overflow-wrap:break-word}
+.lema em{font-style:normal;color:var(--mantequilla)}
 .hero .entrada{margin-top:1.6rem}
 .acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:2.2rem}
 .hero-marca{justify-self:center;width:min(100%,420px)}
@@ -274,8 +277,9 @@ fieldset.campo{border:0;margin:0;padding:0}
     <svg class="rayos" id="rayos" viewBox="0 0 1000 1000" aria-hidden="true"></svg>
     <div class="envoltura">
       <div>
+        <h1 class="nombre"><span>NúMia</span><small>Training Center</small></h1>
         <p class="estado"><i aria-hidden="true"></i>En proceso · Abrimos muy pronto</p>
-        <h1>Entrena a tu medida <em>con un plan</em></h1>
+        <p class="lema">Entrena a tu medida <em>con un plan</em></p>
         <p class="entrada">Un centro de entrenamiento cercano donde cada sesión se adapta a ti: a tu nivel, a tu cuerpo y a tus objetivos. Fuerza, planificación y acompañamiento de verdad. Estamos preparando el espacio y ya puedes reservar tu plaza.</p>
         <div class="acciones">
           <a class="boton boton-sol" data-wa="Hola NúMia, me gustaría recibir información sobre el centro." href="https://wa.me/34600000000" target="_blank" rel="noopener">
